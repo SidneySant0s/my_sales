@@ -4,9 +4,10 @@ import ShowProductService from "../services/ShowProductService";
 import CreateProductService from "../services/CreateProductServices";
 import UpdateProductService from "../services/UpdateProductService";
 import DeleteProductService from "../services/DeleteProductService";
+import 'express-async-errors';
 
 export default class ProductControllers {
-  async indexedDB(request: Request, response: Response): Promise<Response>{
+  async index(request: Request, response: Response): Promise<Response>{
     const listProductsService = new ListProductService();
     const products = await listProductsService.execute();
     return response.json(products)
