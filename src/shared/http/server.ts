@@ -2,6 +2,7 @@ import express from "express";
 import 'express-async-errors';
 import 'reflect-metadata';
 import cors from "cors";
+import { errors } from "celebrate";
 
 import routes from "./routes";
 import ErrorHandleMiddleware from "./ErrorHandleMiddleware";
@@ -15,7 +16,7 @@ AppDataSource.initialize()
     app.use(cors());
     app.use(express.json());
 
-
+    app.use(errors());
     app.use(routes);
     app.use(ErrorHandleMiddleware.haddleError)
 
