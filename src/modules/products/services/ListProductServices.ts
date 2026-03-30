@@ -1,4 +1,4 @@
-import { productsRepositories } from "@modules/repositories/ProductsRepositories";
+import { productsRepositories } from "@modules/products/repositories/ProductsRepositories";
 import { Product } from "../database/entities/Products";
 
 
