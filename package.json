@@ -19,6 +19,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/joi": "^17.2.2",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.1",
     "@typescript-eslint/parser": "^8.57.1",
@@ -33,11 +34,12 @@
   "dependencies": {
     "@types/bcrypt": "^6.0.0",
     "bcrypt": "^6.0.0",
-    "celebrate": "^15.0.3",
+    "celebrate": "^12.1.2",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^4.22.1",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.28"

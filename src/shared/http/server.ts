@@ -16,8 +16,8 @@ AppDataSource.initialize()
     app.use(cors());
     app.use(express.json());
 
-    app.use(errors());
     app.use(routes);
+    app.use(errors());
     app.use(ErrorHandleMiddleware.haddleError)
 
     // eslint-disable-next-line no-console
