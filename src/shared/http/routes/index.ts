@@ -2,7 +2,8 @@ import productsRouter from '@modules/products/routes/ProductRoutes';
 import avatarRouter from '@modules/users/routes/AvatarRoutes';
 import sessionsRoouter from '@modules/users/routes/SessionRoutes';
 import userRouter from '@modules/users/routes/UserRoutes';
-import { Router } from 'express';
+import express, { Router } from 'express';
+import uploadConfig from '@config/upload';
 
 const routes = Router();
 
@@ -14,5 +15,6 @@ routes.use('/products',productsRouter);
 routes.use('/users', userRouter);
 routes.use('/sessions', sessionsRoouter);
 routes.use('/avatar', avatarRouter);
+routes.use('/files', express.static(uploadConfig.directory));
 
 export default routes;
