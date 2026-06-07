@@ -7,15 +7,21 @@ export class OrdersProducts {
   @PrimaryGeneratedColumn()
   id :number;
 
-  @ManyToOne(() => Order, order => order.orders_products)
+  @ManyToOne(() => Order, order => order.order_products)
   @JoinColumn({name: 'order_id'})
   order: Order;
+
+  @Column()
+  order_id: string;
 
   @ManyToOne(() => Product, product => product.order_products)
   @JoinColumn({name: 'product_id'})
   product: Product;
 
-  @Column('prince')
+  @Column()
+  product_id: string;
+
+  @Column('decimal')
   price: number;
 
   @Column('int')

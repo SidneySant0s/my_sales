@@ -1,5 +1,10 @@
 import { Product } from "@modules/products/database/entities/Products";
 import { AppDataSource } from "@shared/typeorm/data-source";
+import { In } from "typeorm";
+
+interface IFindProducts{
+  id: string
+}
 
 export const productsRepositories = AppDataSource.getRepository(Product).extend(
   {
@@ -10,5 +15,15 @@ export const productsRepositories = AppDataSource.getRepository(Product).extend(
     async findById(id: string):Promise<Product | null> {
       return this.findOneBy({ id });
     },
+    async findAllByIds(products: IFindProducts[]): Promise<Product []>{
+      const productsIds = products.map(products => products.id)
+
+      const existentProducts = await this.find({
+        where: { id: In(productsIds) },
+      })
+
+      return existentProducts;
+    }
+
   }
 );
