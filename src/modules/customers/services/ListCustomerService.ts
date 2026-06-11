@@ -1,6 +1,6 @@
 import { Ipaginate } from "@shared/interfaces/pagination.interface";
-import { customerRepository } from "../database/repositories/CustomerRpositories";
-import { Customer } from "../database/entities/Customer";
+import { customerRepository } from "../infra/database/repositories/CustomerRpositories";
+import { Customer } from "../infra/database/entities/Customer";
 
 export default class ListCustomerService {
   async execute(page: number = 1, limit: number = 10 ): Promise<Ipaginate<Customer>> {

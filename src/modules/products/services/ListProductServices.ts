@@ -1,5 +1,5 @@
-import { productsRepositories } from "@modules/products/repositories/ProductsRepositories";
-import { Product } from "../database/entities/Products";
+import { productsRepositories } from "@modules/products/infra/database/repositories/ProductsRepositories";
+import { Product } from "../infra/database/entities/Products";
 import RedisCache from "@shared/cache/RedisCache";
 
 

@@ -1,6 +1,6 @@
-import { productsRepositories } from "@modules/products/repositories/ProductsRepositories";
+import { productsRepositories } from "@modules/products/infra/database/repositories/ProductsRepositories";
 import AppError from "@shared/errors/AppError";
-import { Product } from "../database/entities/Products";
+import { Product } from "../infra/database/entities/Products";
 
 interface IShowProduct{
   id: string;

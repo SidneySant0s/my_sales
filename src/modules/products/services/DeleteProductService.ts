@@ -1,4 +1,4 @@
-import { productsRepositories } from "@modules/products/repositories/ProductsRepositories";
+import { productsRepositories } from "@modules/products/infra/database/repositories/ProductsRepositories";
 import RedisCache from "@shared/cache/RedisCache";
 import AppError from "@shared/errors/AppError";
 
