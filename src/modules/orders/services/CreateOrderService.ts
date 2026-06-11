@@ -19,15 +19,12 @@ export class CreateOrderService {
     if (!customerExists) {
       throw new AppError("Could not find any customer with the given id.");
     }
-    const productIds = products.map(product => ({ id: product.id }));
-    const existsProducts = await productsRepositories.findAllByIds(productIds);
 
+    const existsProducts = await productsRepositories.findAllByIds(products);
 
     if (!existsProducts.length) {
       throw new AppError("Could not find any customer with the given ids.");
     }
-    console.log('Produtos recebidos:', products);
-    console.log('Produtos encontrados no banco:', existsProducts);
 
     const existsproductsIds = products.map((products) => products.id);
 
@@ -51,9 +48,9 @@ export class CreateOrderService {
       );
     });
 
-    if (quantityAvailable.length) {
+    if (!quantityAvailable.length) {
       throw new AppError(
-        `The quantity ${quantityAvailable[0]?.quantity} is insufficient for product ${quantityAvailable[0]?.id}`,
+        `The quantity is insufficient for product`,
         400,
       );
     }
@@ -81,4 +78,6 @@ export class CreateOrderService {
 
     return order;
   }
+
+
 }

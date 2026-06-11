@@ -18,7 +18,7 @@ export class OrdersProducts {
   @JoinColumn({name: 'product_id'})
   product: Product;
 
-  @Column()
+  @Column('int')
   product_id: string;
 
   @Column('decimal')
