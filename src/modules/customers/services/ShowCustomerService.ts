@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/AppError";
 import { Customer } from "../infra/database/entities/Customer";
-import { customerRepository } from "../infra/database/repositories/CustomerRpositories";
+import { ICustomersRepository } from "../domain/repositories/ICustomerRepositories";
 
 
 interface IShowCustomer{
@@ -8,8 +8,11 @@ interface IShowCustomer{
 }
 
 export default class ShowCustomerService {
+
+  constructor(private readonly customerRepository: ICustomersRepository){}
+
   public async execute({ id }: IShowCustomer): Promise<Customer> {
-    const customer = await customerRepository. findById(id);
+    const customer = await this.customerRepository. findById(id);
 
     if(!customer) {
       throw new AppError('Customer not found.', 404);

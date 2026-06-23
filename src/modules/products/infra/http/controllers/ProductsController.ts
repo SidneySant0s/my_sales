@@ -1,9 +1,10 @@
+import CreateProductService from "@modules/products/services/CreateProductServices";
+import DeleteProductService from "@modules/products/services/DeleteProductService";
+import ListProductService from "@modules/products/services/ListProductServices";
+import ShowProductService from "@modules/products/services/ShowProductService";
+import UpdateProductService from "@modules/products/services/UpdateProductService";
 import { Request, Response } from "express";
-import ListProductService from "../services/ListProductServices";
-import ShowProductService from "../services/ShowProductService";
-import CreateProductService from "../services/CreateProductServices";
-import UpdateProductService from "../services/UpdateProductService";
-import DeleteProductService from "../services/DeleteProductService";
+
 import 'express-async-errors';
 
 export default class ProductControllers {

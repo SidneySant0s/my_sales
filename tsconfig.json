@@ -1,16 +1,15 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     // File Layout
-    "rootDir": "src",
+    "module": "commonjs",
+    "rootDir": "./",
     "outDir": "dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "commonjs",
     "moduleResolution": "node",
-    "target": "esnext",
+    "target": "es2020",
     "lib": ["es6", "DOM"],
     "baseUrl": "./",
     "paths": {
@@ -48,9 +47,9 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": false,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
+    //"verbatimModuleSyntax": false,
+    "isolatedModules": false,
+    //"noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
 
@@ -69,6 +68,11 @@
     "dist",
     "build",
     "eslint.config.mjs"
+  ]
+
+  ,
+  "include": [
+    "src/**/*"
   ]
 
 }

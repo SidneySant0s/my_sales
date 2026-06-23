@@ -3,6 +3,7 @@ import 'express-async-errors';
 import 'reflect-metadata';
 import cors from "cors";
 import { errors } from "celebrate";
+import '@shared/container';
 
 import routes from "./routes";
 import ErrorHandleMiddleware from "./ErrorHandleMiddleware";

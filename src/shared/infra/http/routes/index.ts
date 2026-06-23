@@ -1,13 +1,13 @@
-import productsRouter from '@modules/products/routes/ProductRoutes';
-import avatarRouter from '@modules/users/routes/AvatarRoutes';
-import sessionsRoouter from '@modules/users/routes/SessionRoutes';
-import userRouter from '@modules/users/routes/UserRoutes';
 import express, { Router } from 'express';
 import uploadConfig from '@config/upload';
-import passwordRouter from '@modules/users/routes/PasswordRoutes';
-import profileRouter from '@modules/users/routes/ProfileRoutes';
 import ordersRouter from '@modules/orders/infra/http/routes/OrdersRoutes';
 import customersRouter from '@modules/customers/infra/http/Routes/CustomersRoutes';
+import productsRouter from '@modules/products/infra/http/routes/ProductRoutes';
+import avatarRouter from '@modules/users/infra/http/routes/AvatarRoutes';
+import passwordRouter from '@modules/users/infra/http/routes/PasswordRoutes';
+import profileRouter from '@modules/users/infra/http/routes/ProfileRoutes';
+import sessionsRoouter from '@modules/users/infra/http/routes/SessionRoutes';
+import userRouter from '@modules/users/infra/http/routes/UserRoutes';
 
 const routes = Router();
 

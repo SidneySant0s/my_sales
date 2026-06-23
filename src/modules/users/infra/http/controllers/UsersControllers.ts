@@ -1,6 +1,6 @@
+import CreateUserService from "@modules/users/services/CreateUserService";
+import ListUsersServices from "@modules/users/services/ListUsersServices";
 import { instanceToInstance } from "class-transformer";
-import CreateUserService from "../services/CreateUserService";
-import ListUsersServices from "../services/ListUsersServices";
 import { Request, Response } from "express";
 
 export default class UsersControllers{
