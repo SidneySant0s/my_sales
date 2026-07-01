@@ -8,32 +8,33 @@ import '@shared/container';
 import routes from "./routes";
 import ErrorHandleMiddleware from "./ErrorHandleMiddleware";
 import { AppDataSource } from "@shared/infra/typeorm/data-source";
-import ratelimiter from "@shared/middlewares/rateLimiter";
+import rateLimiter from "@shared/middlewares/rateLimiter";
 
+const startServer = async () => {
+  await AppDataSource.initialize();
 
-AppDataSource.initialize()
-  .then(async () => {
-    const app = express();
+  const app = express();
 
-    app.use(cors());
-    app.use(express.json());
+  app.use(cors());
+  app.use(express.json());
 
-    app.use(ratelimiter);
+  app.use(rateLimiter);
+  app.use(routes);
+  app.use(errors());
+  app.use(ErrorHandleMiddleware.haddleError);
 
-    app.use(routes);
-    app.use(errors());
-    app.use(ErrorHandleMiddleware.haddleError)
+  console.log('Connected to the database! 🎉');
 
-    // eslint-disable-next-line no-console
-    console.log('Connect to the database!!')
+  return app;
+};
 
-    app.listen(3333, () => {
-      // eslint-disable-next-line no-console
-      console.log('Server started on port 3333!')
-    })
+export default startServer()
+  .then(app => {
+    return app.listen(3333, () => {
+      console.log('Server started on port 3333! 🏆');
+    });
   })
-  .catch( error => {
-    // eslint-disable-next-line no-console
-    console.error('Falied to connect to the database:', error)
-  })
+  .catch(error => {
+    console.error('Failed to connect to the serve:', error);
+  });
 

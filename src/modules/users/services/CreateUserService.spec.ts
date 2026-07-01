@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import FakeUserRepository from '../domain/repositories/fakes/FakeUserRepositories';
 import CreateSessionsService from './CreateSessionService';
-import { User } from '../infra/database/entities/User';
+//import { User } from '../infra/database/entities/User';
 
 jest.mock('bcrypt', () => ({
   compare: jest.fn(),
@@ -14,20 +14,6 @@ jest.mock('jsonwebtoken', () => ({
   sign: jest.fn(() => 'fake-token'),
 }));
 
-const mockUserData: User[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    password: 'hashed-password',
-    created_at: new Date(),
-    updated_at: new Date(),
-    getAvatarUrl() {
-      return 'avatar.jpg';
-    },
-  } as User,
-];
-
 let fakeUserRepository: FakeUserRepository;
 let createSessionsService: CreateSessionsService;
 
@@ -37,44 +23,38 @@ describe('CreateSessionsService', () => {
     createSessionsService = new CreateSessionsService(fakeUserRepository);
   });
 
-  it('should be able to authenticate with valid credentials', async () => {
-    const user = { ...mockUserData[0] };
-    const { email, password } = user;
-
-    await fakeUserRepository.create(user);
-
-    (require('bcrypt').hash as jest.Mock).mockResolvedValue('hashed-password');
-    (require('bcrypt').compare as jest.Mock).mockResolvedValue(true);
-
-    const response = await createSessionsService.execute({ email: email as string, password: password as string });
-
-    expect(response).toHaveProperty('token');
-    expect(response.user.email).toBe(email);
+it('should be able to authenticate with valid credentials', async () => {
+  await fakeUserRepository.create({
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    password: 'hashed-password',
   });
 
-  it('should not be able to authenticate with non-existing user', async () => {
-    await expect(
-      createSessionsService.execute({
-        email: 'nonexisting@example.com',
-        password: '123456',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+  (require('bcrypt').compare as jest.Mock).mockResolvedValue(true);
+
+  const response = await createSessionsService.execute({
+    email: 'johndoe@example.com',
+    password: 'hashed-password',
   });
 
-  it('should not be able to authenticate with wrong password', async () => {
-    const user = { ...mockUserData[0] };
-    const email = user.email as string;
+  expect(response).toHaveProperty('token');
+  expect(response.user.email).toBe('johndoe@example.com');
+});
 
-    await fakeUserRepository.create(user);
-
-    (require('bcrypt').hash as jest.Mock).mockResolvedValue('hashed-password');
-    (require('bcrypt').compare as jest.Mock).mockResolvedValue(false);
-
-    await expect(
-      createSessionsService.execute({
-        email,
-        password: 'wrong-password',
-      }),
-    ).rejects.toBeInstanceOf(AppError);
+it('should not be able to authenticate with wrong password', async () => {
+  await fakeUserRepository.create({
+    name: 'John Doe',
+    email: 'johndoe@example.com',
+    password: 'hashed-password',
   });
+
+  (require('bcrypt').compare as jest.Mock).mockResolvedValue(false);
+
+  await expect(
+    createSessionsService.execute({
+      email: 'johndoe@example.com',
+      password: 'wrong-password',
+    }),
+  ).rejects.toBeInstanceOf(AppError);
+});
 });

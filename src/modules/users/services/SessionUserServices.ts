@@ -1,38 +1,26 @@
-import AppError from "@shared/errors/AppError";
-import { User } from "../infra/database/entities/User";
-import { usersRepositories } from "../infra/database/repositories/UsersRepositories";
-import { compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import AppError from '@shared/errors/AppError';
+import { IUsersRepository } from '../domain/repositories/IUserRepositories';
+import { inject } from 'tsyringe';
+import { User } from '../infra/database/entities/User';
 
-interface ISessionUser{
-  email: string;
-  password: string;
+interface IRequest {
+  user_id: string;
 }
 
-interface ISessionResponse {
-  user: User;
-  token: string;
-}
+class ShowProfileService {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
+  public async execute({ user_id }: IRequest): Promise<User> {
+    const user = await this.usersRepository.findById(user_id);
 
-export default class SessionUserService {
-  async execute({email, password}: ISessionUser): Promise<ISessionResponse>{
-    const user = await usersRepositories.findByEmail(email);
-
-    if(!user) {
-      throw new AppError('Incorrect email/password combination', 401);
+    if (!user) {
+      throw new AppError('User not found.', 404);
     }
 
-    const passwordConfirmed = await compare(password, user.password);
-
-    if (!passwordConfirmed) {
-      throw new AppError('Incorrect email/password combination', 401)
-    }
-
-    const token = sign({}, process.env.APP_SECRET as string, { subject: String(user.id), expiresIn: '1d'});
-
-    return {
-      user,
-      token,
-    }
+    return user;
   }
 }
+
+export default ShowProfileService;

@@ -10,7 +10,7 @@ export default class CustomersControllers {
   async index(request: Request, response: Response): Promise<Response> {
     const page = parseInt(request.query.page as string )|| 1;
     const limit = parseInt(request.query.limit as string ) || 10;
-    const listCustomers = new ListCustomerService();
+     const listCustomers = container.resolve(ListCustomerService);
 
     const customers = await listCustomers.execute(page, limit);
 
@@ -20,7 +20,7 @@ export default class CustomersControllers {
   async show(request: Request, response: Response): Promise<Response> {
     const id = Number(request.params.id);
 
-    const showCustomer = new ShowCustomerService();
+    const showCustomer = container.resolve(ShowCustomerService);
 
     const customer = await showCustomer.execute({ id });
 
@@ -43,7 +43,7 @@ export default class CustomersControllers {
     const { name, email } = request.body;
     const  id =  Number(request.params.id);
 
-    const updateCustomer = new UpdateCustomerService();
+    const updateCustomer = container.resolve(UpdateCustomerService);
 
     const customer = await updateCustomer.execute({
       id,
@@ -58,7 +58,7 @@ export default class CustomersControllers {
   async delete(request:Request, response: Response): Promise<Response> {
     const id =  Number(request.params.id);
 
-    const deleteCustomer = new DeleteCustomerService();
+     const deleteCustomer = container.resolve(DeleteCustomerService);
 
     await deleteCustomer.execute({ id });
 
